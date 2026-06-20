@@ -53,9 +53,27 @@ GEE_PROJECT_ID = "uhi-global-monitor"
 
 @st.cache_resource
 def get_ee_session(project_id: str) -> bool:
-    uhi_core.init_earth_engine(project=project_id)
-    return True
-
+    """Inicializa la sesión de Earth Engine de forma segura en la nube o local."""
+    import json
+    
+    # 1. Intentamos leer las credenciales secretas de la nube (Streamlit Secrets)
+    if "GEE_JSON" in st.secrets:
+        try:
+            # Parseamos el texto plano TOML/JSON que guardaste a un diccionario de Python
+            creds_dict = json.loads(st.secrets["GEE_JSON"])
+            credentials = ee.ServiceAccountCredentials(creds_dict["client_email"], key_data=creds_dict["private_key"])
+            ee.Initialize(credentials=credentials, project=project_id)
+            return True
+        except Exception as e:
+            st.error(f"Error de autenticación con la cuenta de servicio en la nube: {e}")
+            
+    # 2. Respaldo por si estás corriendo el archivo de forma local en tu Windows
+    try:
+        uhi_core.init_earth_engine(project=project_id)
+        return True
+    except Exception as e:
+        st.error(f"No se pudo inicializar Earth Engine localmente: {e}")
+        st.stop()
 
 get_ee_session(GEE_PROJECT_ID)
 
