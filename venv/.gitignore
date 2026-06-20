@@ -1,0 +1,53 @@
+# ===========================================================================
+# 📦 ENTORNOS VIRTUALES (No subir librerías locales)
+# ===========================================================================
+venv/
+.venv/
+env/
+ENV/
+pyvenv.cfg
+lib/
+pip-selfcheck.json
+
+# ===========================================================================
+# 🔑 SEGURIDAD Y CREDENCIALES (¡CRÍTICO! Mantén tus llaves en secreto)
+# ===========================================================================
+# Claves privadas JSON de cuentas de servicio de Google Cloud / Earth Engine
+*.json
+!requirements.txt  # Excepción para que NO ignore el archivo de requerimientos si termina en .txt
+
+# Configuración y secretos locales de Streamlit (.streamlit/secrets.toml)
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# Archivos de entorno ocultos individuales
+.env
+.flaskenv
+
+# ===========================================================================
+# 🐍 COMPILACIÓN DE PYTHON & CACHÉ
+# ===========================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# ===========================================================================
+# 📊 ARCHIVOS DE DATOS LOCALES Y REPORTES EXPORTADOS
+# ===========================================================================
+# Previene subir reportes CSV que descargues accidentalmente en la carpeta del proyecto
+*.csv
+*.xlsx
+*.log
+
+# ===========================================================================
+# 💻 ARCHIVOS BASURA DEL SISTEMA OPERATIVO
+# ===========================================================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
